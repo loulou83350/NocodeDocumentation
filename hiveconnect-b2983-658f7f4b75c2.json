@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "hiveconnect-b2983",
+  "private_key_id": "658f7f4b75c2e48404a1e256f2534753c3097185",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIdHVqLGqa6qeV\ngSXUlwzE02wkDAb3JybpdLKqW52nq4JrviFGLksdCDuWJMeOAZEAhJCTwD3mOJmV\ncW8xLv6wQyBJwLoLrSsh7fzsUrqk8t/xJ7ihQa0xLQwpznw0FJzzK/dmAvK/Yp6V\n84eKyFkWnGYo1DQK5AhEwROVo0JBjq43oW7NHLFoRADgJEkf3L/2xIdby75Dt5Hk\nB4syjz6McRwLqxXCTad+//xa6dlgZU4LtBEUrE9pSywPbqQqkzU0gHgyh7m51g4u\nhz1sSVPDbEY3mv/nY4GG2ElKDSrDCJ14wii+9qnT2I4I53560eVPiZjApK92ysfY\nKTiK/aItAgMBAAECggEAEHFLE0025mOyoOcR0xUb0UZVY8SPyrStsq8lm6c9sJv3\nK/7RzGeuNiCvgJKeQtX6jqwRDumROkHwySsfl413Cz7KVnpmWGBZPiR/H2Ru1mps\nt6OON74DJpo/GevL0NrS//heiAHcZxoAD6VE/DuQYTQthhJX/X+0dO1QfbEBVY6p\nLPXemE7cYd8WAVfgWb8str5UobChIiFjwVQcTx/UVgVQ1VfQEa2MkIcffRK+tiHi\npzlLxwqwJD8qOcrWImFK0TaciJ5+pfusfivpmOK5jW4y8WAqLQm58s3nTP5j1eQf\n1zgtvPIuWOyOJ7YQzie1gasP2xr9oYPnBguFNFXDuQKBgQDmcngkuGOcoEyvLRwz\nnBgzaVW5R1mo+SbO7rj8UvrGPRrxh9m5aQRnXhf+tnNp4udfTNLpqg4kCSx41Akw\nARm5XIqlt8DUlZGFfIRwGuHZEHMpmz/wbMYGX3Vp1kPXKj9uRcILs4QYmdlXrJkl\noon7Gz6Vyi5h9TRafcKaJBIxyQKBgQDerp9T9DMjJtRDjBtZee7KfOHgNe9Mvuo/\nUppyq55ab0iBdroXDGJSzefDiP9zvwm5Hm8Z2iYDI3vD6dR8eThH5oMOGjMdEusR\nEPLM5iVTDAlkcaJh/Cxnr+xl52bamgOXvD52r5DviROgTiDSAbLmdb7EDA3DSQMP\nsk6/pgf/RQKBgQDT7/jgxJgQJzj/brxeFrQHLFwDj0Q9bA8uB00n+mTaRr5t3eP2\nakf7jQUCY+gXPPBPrEbZUWW57Jny8gcVGB4BZMO6jxmQKZJxMshWldKaIE/ZtweB\n5XflyosgcEdqLlex4gQJYOse+Pdzc7BRdX/y6eaQOiaYPrwMcVa1DnGRSQKBgEnK\nScfTMyLh2hLsGaAD1MpKqbrXhI3E8fC72axIDHhhSgCErFO46dgQnU1hV20uj/VF\nDYHelRwTJQ8drCj3Llw9GY6RxgBLZZPJLvwRA6tKYM5lDW801i4h0M9P5/hmcuxU\nF8rSkM+fd952JVAR+gt+VxG2ANWGmzoXVxsQ1LOVAoGAGar0V9cciWVgAabLjLTf\nI+I9J9r9SEG4trx/eTqL/4Zdkq94Q0s+3kWUiz10WDvl11xPLXr9N0+OrVyQtBtd\nVbVXu5LnbXc8auZWQWR37oxoBH2ZkTfBC/B+96l5rtxVnBPyY/dTCyUIThugyNY1\nUD70pgTUd3VI5qX8dfMEhdo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "n8n-agent@hiveconnect-b2983.iam.gserviceaccount.com",
+  "client_id": "111117707078955277535",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/n8n-agent%40hiveconnect-b2983.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
