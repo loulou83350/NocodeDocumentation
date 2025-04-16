@@ -1,0 +1,403 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.blocks[0].elements[0].elements[1].text }}",
+          "options": {
+            "systemMessage": "#role \nL'agent principal est un super agent chargé de fournir la documentation sur les outils. Ici tu t'occupe de la documentation de l'outil Weweb. \n- Tu peux utiliser l'outils \"Weweb\" pour recuperer les informations sur l'application Weweb\n- Tu peux utiliser l'outils \"n8n\" pour recuperer les informations sur l'appliaction n8n\n\n"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.8,
+        "position": [
+          -340,
+          -80
+        ],
+        "id": "c190fc1e-48b0-47ee-88da-f851df46ee4b",
+        "name": "AI Agent"
+      },
+      {
+        "parameters": {
+          "trigger": [
+            "app_mention"
+          ],
+          "watchWorkspace": true,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.slackTrigger",
+        "typeVersion": 1,
+        "position": [
+          -700,
+          -80
+        ],
+        "id": "9a66cf94-289b-407e-bf72-c9d93e8dc184",
+        "name": "Slack Trigger",
+        "webhookId": "b40f3981-7c9c-49c0-8e3e-ee2eabbb4d9e",
+        "credentials": {
+          "slackApi": {
+            "id": "TIbKMBksaH8dLaX5",
+            "name": "Slack account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "select": "channel",
+          "channelId": {
+            "__rl": true,
+            "value": "={{ $('Slack Trigger').item.json.channel }}",
+            "mode": "id"
+          },
+          "text": "={{ $json.output }}",
+          "otherOptions": {}
+        },
+        "type": "n8n-nodes-base.slack",
+        "typeVersion": 2.3,
+        "position": [
+          80,
+          -80
+        ],
+        "id": "42ee27db-8b07-472b-a5a5-02f60b784af3",
+        "name": "Slack",
+        "webhookId": "a1e0c5fd-4b85-4874-b562-bb0a6aaabdd4",
+        "credentials": {
+          "slackApi": {
+            "id": "TIbKMBksaH8dLaX5",
+            "name": "Slack account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "modelName": "models/gemini-2.0-flash-exp",
+          "options": {}
+        },
+        "id": "6763d49f-b40f-41d0-bc68-51ecd2c1092f",
+        "name": "Google Gemini Chat Model (retrieval)",
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "position": [
+          -48,
+          340
+        ],
+        "typeVersion": 1,
+        "credentials": {
+          "googlePalmApi": {
+            "id": "Pn67RCoNUtwqVHpV",
+            "name": "Gemini loulou83350"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "modelName": "models/text-embedding-004"
+        },
+        "id": "9393d63f-b238-460b-a4e0-2a7b1a97bb03",
+        "name": "Embeddings Google Gemini (retrieval)1",
+        "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+        "position": [
+          160,
+          540
+        ],
+        "typeVersion": 1,
+        "credentials": {
+          "googlePalmApi": {
+            "id": "Pn67RCoNUtwqVHpV",
+            "name": "Gemini loulou83350"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "modelName": "models/gemini-2.0-flash-exp",
+          "options": {}
+        },
+        "id": "2181b82d-c3b2-4a15-abef-4aaf9a79f105",
+        "name": "Google Gemini Chat Model (retrieval)1",
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "position": [
+          368,
+          340
+        ],
+        "typeVersion": 1,
+        "credentials": {
+          "googlePalmApi": {
+            "id": "Pn67RCoNUtwqVHpV",
+            "name": "Gemini loulou83350"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "pineconeIndex": {
+            "__rl": true,
+            "value": "wewebdata",
+            "mode": "list",
+            "cachedResultName": "wewebdata"
+          },
+          "options": {}
+        },
+        "id": "45a10c1c-bab9-46a0-bf4c-57db463a2ff7",
+        "name": "Weweb data store",
+        "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+        "position": [
+          -344,
+          342.5
+        ],
+        "typeVersion": 1,
+        "credentials": {
+          "pineconeApi": {
+            "id": "loI53w6N4owYTRqf",
+            "name": "PineconeApi WewebDoc"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "pineconeIndex": {
+            "__rl": true,
+            "value": "n8ndoc",
+            "mode": "list",
+            "cachedResultName": "n8ndoc"
+          },
+          "options": {}
+        },
+        "id": "b0687af9-bdc8-49f5-9613-a45b143285f6",
+        "name": "N8n data store",
+        "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+        "position": [
+          72,
+          342.5
+        ],
+        "typeVersion": 1,
+        "credentials": {
+          "pineconeApi": {
+            "id": "loI53w6N4owYTRqf",
+            "name": "PineconeApi WewebDoc"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "sessionIdType": "customKey",
+          "sessionKey": "={{ $('Slack Trigger').item.json.channel }}"
+        },
+        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+        "typeVersion": 1.3,
+        "position": [
+          -380,
+          160
+        ],
+        "id": "f96feb00-3a97-409d-95c0-60c2d0ebe16f",
+        "name": "Simple Memory"
+      },
+      {
+        "parameters": {
+          "modelName": "models/gemini-2.0-flash",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1,
+        "position": [
+          -520,
+          160
+        ],
+        "id": "d42aab07-f5ed-4d94-8ec9-00c6c9279b48",
+        "name": "Google Gemini Chat Model",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "Pn67RCoNUtwqVHpV",
+            "name": "Gemini loulou83350"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "modelName": "models/text-embedding-004"
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+        "typeVersion": 1,
+        "position": [
+          -300,
+          540
+        ],
+        "id": "5a7ded8a-67f8-4e73-b871-30a9bdb19cea",
+        "name": "Embeddings Google Gemini",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "Pn67RCoNUtwqVHpV",
+            "name": "Gemini loulou83350"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "name": "Weweb",
+          "description": "information about weweb documentation",
+          "topK": 8
+        },
+        "id": "db5e647f-ec58-4c26-9f89-9812f1098c00",
+        "name": "Weweb",
+        "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+        "position": [
+          -100,
+          160
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "name": "n8n",
+          "description": "Information about n8n documentation, node and flow",
+          "topK": 8
+        },
+        "id": "7ca393ee-4291-4759-b281-a5dea83934e2",
+        "name": "n8n",
+        "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+        "position": [
+          240,
+          140
+        ],
+        "typeVersion": 1
+      }
+    ],
+    "connections": {
+      "AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Slack",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Slack Trigger": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model (retrieval)": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Weweb",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings Google Gemini (retrieval)1": {
+        "ai_embedding": [
+          [
+            {
+              "node": "N8n data store",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model (retrieval)1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "n8n",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Weweb data store": {
+        "ai_vectorStore": [
+          [
+            {
+              "node": "Weweb",
+              "type": "ai_vectorStore",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "N8n data store": {
+        "ai_vectorStore": [
+          [
+            {
+              "node": "n8n",
+              "type": "ai_vectorStore",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Simple Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings Google Gemini": {
+        "ai_embedding": [
+          [
+            {
+              "node": "Weweb data store",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Weweb": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "n8n": {
+        "ai_tool": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "a8ab4a2704eb03c9a597f705b58c166e44db63a309ca8225f4a4009dec15ae79"
+    }
+  }
